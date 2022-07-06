@@ -30,7 +30,7 @@ class Webhooks
         } elseif ('v2' == $signatureVersion) {
             $sourceString = $secret.$httpMethod.$httpUri.$requestBody;
             $hashString = hash('sha256', $sourceString);
-        } elseif('v3' === $signatureVersion) {
+        } elseif ('v3' === $signatureVersion) {
             if ($timestamp === null) {
                 throw new UnexpectedValueException ('$timestamp parameter cannot be null');
             }
