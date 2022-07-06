@@ -21,7 +21,6 @@ class Webhooks
         string $httpMethod = 'POST',
         string $signatureVersion = 'v1'
     ): bool {
-        $sourceString = null;
         if ('v1' == $signatureVersion) {
             $sourceString = $secret.$requestBody;
         } elseif ('v2' == $signatureVersion) {
@@ -30,6 +29,6 @@ class Webhooks
             throw new Exception("Not supported signature version: {$signatureVersion}");
         }
 
-        return $signature == hash('sha256', $sourceString);
+        return hash_equals($signature, hash('sha256', $sourceString));
     }
 }
