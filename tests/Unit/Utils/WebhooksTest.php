@@ -79,14 +79,21 @@ class WebhooksTest extends TestCase
         Webhooks::isHubspotSignatureValid('', '', '', '', '', 'v3');
     }
 
-
+    /**
+     * @param string $secret
+     * @param string $requestBody
+     * @param string|null $httpUri
+     * @param string $httpMethod
+     * @param int|null $timestamp
+     * @return string
+     */
     public static function generateHubspotSignatureV3(
         string $secret,
         string $requestBody,
         string $httpUri = null,
         string $httpMethod = 'POST',
         int $timestamp = null
-    ) {
+    ): string {
         $sourceString = $httpMethod . $httpUri . $requestBody . $timestamp;
         return base64_encode(hash_hmac('sha256', $sourceString, $secret, true));
     }
